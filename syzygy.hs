@@ -524,14 +524,14 @@ moonA3 t = 313.45 + t * 481266.484
 earthEccentricityForMoon :: Double -> Double
 earthEccentricityForMoon t = 1 - t * 0.002516 - t**2 * 0.0000074
 
--- (47.7) Astronomical Algorithms, 2nd Edition p 338
+-- (47.7) Astronomical Algorithms, 2nd Edition p 343
 -- Moon Longitude of Ascending Node
 -- t is time measured in Julian centuries from the
 --   Epoch J2000.0 (JDE 2451545.0)
 moonLongitudeOfAscendingNode :: Double -> Double
 moonLongitudeOfAscendingNode t =
-  125.04452 - t * 1934.136261 + t**2 * 0.0020708
-  + t**3 / 450000
+  125.0445479 - t * 1934.1362891 + t**2 * 0.0020754
+  + t**3 / 467441 - t**4 / 60616000
 
 
 
@@ -618,6 +618,7 @@ radiansToDegrees r
 obliquityOfEcliptic :: Double -> Double
 obliquityOfEcliptic u =
   arcDegToDecDeg 23 26 21.448
+  - arcDegToDecDeg 0 0 4680.93 * u
   - arcDegToDecDeg 0 0 1.55 * u**2
   + arcDegToDecDeg 0 0 1999.25 * u**3
   - arcDegToDecDeg 0 0 51.38 * u**4

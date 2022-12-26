@@ -822,8 +822,8 @@ geocentricLLAToECEF latRad lonRad alt obliquity gmst = (x * cos gmst + y2 * sin 
     y2 = y * cos obliquity - z * sin obliquity
     z2 = y * sin obliquity + z * cos obliquity
 
-geodeticLLAToECEF :: Double -> Double -> (Double, Double, Double)
-geodeticLLAToECEF latRad lonRad = (a * c * cos latRad * cos lonRad, a * c * cos latRad * sin lonRad, a * s * sin latRad)
+geodeticLatLonToECEF :: Double -> Double -> (Double, Double, Double)
+geodeticLatLonToECEF latRad lonRad = (a * c * cos latRad * cos lonRad, a * c * cos latRad * sin lonRad, a * s * sin latRad)
   where
     a = 6378.137
     b = 6356.75231424518
@@ -895,7 +895,7 @@ main = do
   let (moonX, moonY, moonZ) = geocentricLLAToECEF (degreesToRadians moonApparentLat) (degreesToRadians moonApparentLon) moonDist (degreesToRadians trueObliquity) gmst
   let (sunX, sunY, sunZ) = geocentricLLAToECEF (degreesToRadians sunApparentLat) (degreesToRadians sunApparentLon) sunDist (degreesToRadians trueObliquity) gmst
   let (earthLat, earthLon) = earthLatLonArgs args
-  let (earthX, earthY, earthZ) = geodeticLLAToECEF (geodeticToGeocentricLat (degreesToRadians earthLat)) (degreesToRadians earthLon)
+  let (earthX, earthY, earthZ) = geodeticLatLonToECEF (degreesToRadians earthLat) (degreesToRadians earthLon)
   let earthDist = sqrt (earthX**2 + earthY**2 + earthZ**2)
   let earthToSunDist = sqrt ((earthX - sunX)**2 + (earthY - sunY)**2 + (earthZ - sunZ)**2)
   let earthToMoonDist = sqrt ((earthX - moonX)**2 + (earthY - moonY)**2 + (earthZ - moonZ)**2)
